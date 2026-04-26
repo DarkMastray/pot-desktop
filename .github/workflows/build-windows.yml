@@ -1,7 +1,5 @@
 name: Build Windows Pot
 on:
-  push:
-    branches: [ "test-spen" ] # 监听你的测试分支
   workflow_dispatch:
 
 jobs:
@@ -32,11 +30,10 @@ jobs:
 
       - name: Build Tauri app
         run: pnpm tauri build
-        continue-on-error: true # 核心修改：遇到签名报错不要停，当作警告处理，继续往下走
+        continue-on-error: true # 关键点：告诉系统，即使这一步报错，也不要中断，继续往下走
 
       - name: Upload Installer Artifact
         uses: actions/upload-artifact@v4
         with:
           name: Pot-Desktop-Custom
-          # 精准提取打包好的 exe 安装文件
           path: src-tauri/target/release/bundle/nsis/*.exe
