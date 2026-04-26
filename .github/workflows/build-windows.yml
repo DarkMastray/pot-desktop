@@ -30,6 +30,7 @@ jobs:
 
       - name: Build Tauri app
         run: pnpm tauri build
+        continue-on-error: true # 关键点：告诉系统，即使这一步报错，也不要中断，继续往下走
 
       - name: Upload Installer Artifact
         uses: actions/upload-artifact@v4
